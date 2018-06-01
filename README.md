@@ -1,27 +1,30 @@
-# ProspectingApp
+# Prospecting App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
+An app built with Angular 5.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+`ng serve`, `http://localhost:4200/` (or `ng serve -o` for short)
 
-## Code scaffolding
+### How it works
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Shares a central service that handles all of the http requests. It also serves as a quasi-state for more robust functionality in the same provider.
 
-## Build
+#### How it's made
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Everything stems from the app component, expanding into a HEADER, SIDEBAR, PRIMARY (route outlet), and FOOTER. The header offers a quick way to the default screen ("home page"). The sidebar offers quick navigation to existing companies. The primary container is strictly a portal host with light padding. Footer holds the CUD because it's easy to access (especially on mobile). 
 
-## Running unit tests
+*Caveats*: Did not optimize for mobile. Did not go overboard back-end functions (this demos  wiring/structuring/writing front-end functionality). Kept a few things stdout/console.log since the app will not have a real-world use.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+##### How it's structured
 
-## Running end-to-end tests
+The app consists of the app-related files, a route file (routing.ts), and 3 folders (data, components, services). The CSS is almost exclusively contained in the root SCSS file (styles.scss).
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+The component folder acts like a tree, branching out to each respective parent container. With more components I would likely set up a folder to house smaller components (charts, forms, etc.).
 
-## Further help
+###### Summary
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Most of this is custom (aside from Angular 5 and TypeScript). I wrote basically everything from scratch to build what I consider to be a strong foundation. Hope you like it!
+
+*Best,*
+*Casey*
