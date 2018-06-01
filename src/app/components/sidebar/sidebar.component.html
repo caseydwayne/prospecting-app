@@ -1,0 +1,19 @@
+<div id="sidebar">
+
+  <div *ngIf='company_list; else noCompany'>
+    <div *ngFor="let company of company_list">
+      <tab
+        [company]="company"
+        (click)="activateCompany(company)"
+        routerLink="/company/{{company.id}}"        
+      ></tab>
+    </div>
+  </div>
+
+  <ng-template #noCompany>
+    <div id="noCompany">
+      <div class="text">Add A Company First</div>
+    </div>
+  </ng-template>
+
+</div>

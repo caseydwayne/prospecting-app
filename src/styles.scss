@@ -1,0 +1,249 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css);
+//global theme settings
+$diminish: 0;
+$lite: darken( white, $diminish );
+$dark: lighten( black, $diminish/2 );
+$gray: #999999;
+$brightness: 32;
+$saturation: 50;
+
+$color-primary: hsl( 200, $saturation, $brightness );
+
+$colors: (
+  blue: 200,
+  red: 0,
+  green: 111,
+  yellow: 48
+);
+
+$theme-colors: ();
+
+//return HEX from HSL
+@function theme-color( $color, $hue: -1 ){
+  @if $hue == -1 {
+    //fetch color from map
+    $hue: map-get( $colors, "#{$color}" );
+    //default to -1 if null or no number found
+    @if $hue == null or type-of($hue) != number {
+      $hue: -1;
+    }
+  }// @else { @debug 'Detected non -1 value: ' + $hue; }
+  $c: hsl( $hue, $saturation, $brightness );
+  $theme-colors: map-merge( $theme-colors, ( "#{$color}": $c ) );
+  @return $c;
+}
+
+//create theme color classes
+@mixin theme-color( $name, $hue ){
+  $c: theme-color( $name, $hue );
+  .theme-#{$name} { color: $c  }
+  .theme-bg-#{$name} { background-color: $c; }
+}
+
+//create theme colors
+@each $n, $v in $colors {
+  @include theme-color( "#{$n}", $v ); //<- interpolation to silence warning
+}
+
+//@debug theme("blue");
+
+
+%size-full {
+  width: 100%;
+  height: 100%;
+}
+html { @extend %size-full; }
+body, app {
+  width: 100%;
+  height: auto;
+}
+app, #sidebar, #primary { display: block; }
+app {
+  color: $dark;
+  font-family: 'Roboto', 'Proxima Nova', 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+}
+
+//$theme-blue: map-get( $theme-colors, 'blue' );
+$theme-blue: theme-color('blue');
+#sidebar {
+  position: fixed;
+  height: 100%;
+  //max-width: 320px;
+  //background: $gray;
+  //@extend .theme-bg-blue;
+  background: desaturate( $color-primary, 43 );
+  width: 20%;
+}
+#primary {
+  position: fixed;
+  height: 86.5%;
+  margin-left: 20%;
+  width: 80%;
+  background-color: $lite;
+  overflow-y: scroll;;
+}
+#wrap {
+  position: fixed;
+  height: 86.5%;
+  width: 100%;
+  top: 64px;
+  overflow: hidden;
+  &.demo:after{
+    display: block;
+    content: '';
+    position: absolute;;
+    width: 100%; height: 100%;
+    background: rgba(255,0,0,.25)
+  }
+}
+
+.company--tab {
+  padding: 1rem;
+  box-shadow: inset 0 0 transparentize( $dark, .12 );
+  border: 1px solid darken( $gray, 10 );
+  background-color: darken( $gray, 10 );
+  background: $color-primary;
+  transition: background-color .15s linear;
+  box-shadow: inset 0 30px 30px -15px rgba(255,255,255,.1)
+    , inset 0 0 0 1px rgba(255,255,255,.3)
+    , inset 0 1px 20px rgba(0,0,0,0)
+    //, 0 3px 0 theme("blue"),
+    , 0 3px 2px rgba(0,0,0,.2)
+    , 0 5px 10px rgba(0,0,0,.1)
+    , 0 10px 20px rgba(0,0,0,.1)
+  ;
+  &:hover {
+    background-color: darken( $lite, 40 );
+    background: lighten( desaturate( $color-primary, 2 ), 8 );
+    cursor: pointer;
+  }
+  &:target, &:active, &:focus {
+    background-color: darken( $lite, 38 );
+    background: desaturate( $color-primary, 05 );
+    box-shadow: inset 0 0 1px transparentize( red, .12 );
+    user-select: none;
+  }
+  &.active {
+    background-color: darken( $lite, 35 );
+    box-shadow: inset 0 0 1px transparentize( $lite, .12 );
+    color: yellow;
+  }
+  .text {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.company--page {
+  padding: 1rem;
+  .company--header {}
+  .company--info {}
+  .company--status {}
+  .company--name {}
+  .company--description {}
+  .company--financial--data {}
+  .company--block {
+    //border: 1px solid $dark;
+    max-width: 800px;
+    margin: 1.618rem 0;
+  }
+  .card {
+    background: $lite;
+    .card-title {
+      background: white;
+      padding: 1rem;
+      h4 { margin: 0; font-weight: 600; }
+    }
+
+  }
+}
+
+.note { opacity: .8; font-size: 80%; }
+
+
+.status, status-box { padding: 0; margin: 0; border: none !important; display: inline-block !important; }
+.status-bar {
+  width: 96%;
+  margin: auto;
+  //max-width: 400px;
+  background: $gray;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 9px 8px transparentize( $lite, 0 );
+  &:hover {
+    //.current { opacity: .5; filter: saturate(.1); }
+  }
+  .status {
+    color: transparentize($lite,.5);
+    display: inline-block;
+    width: 24.5%;
+    opacity: .95;
+    user-select: none;
+    text-align: center;
+    &.current {
+      box-shadow:
+        inset 0 0 4px 2px transparentize( $lite, .85 ),
+        1px 1px 1px 0px transparentize( $dark, .85 );
+      ;
+      opacity: 1;
+      color: $lite !important;
+      .status--wrap {
+        border: 1px solid lighten( $gray, 32 );
+      }
+    }
+    &:first-of-type {
+      //@extend .current;
+    }
+    &.research { @extend .theme-bg-green; }
+    &.pending { @extend .theme-bg-yellow; }
+    &.accepted { @extend .theme-bg-blue; }
+    &.declined { @extend .theme-bg-red; }
+    &:hover {
+      opacity: 1;
+      //@extend .current;
+      cursor: pointer;
+      color: transparentize( $lite, .25 );
+    }
+    .status--wrap {
+      border: 1px solid $gray;
+    }
+    .text {
+      display: inline-block;
+      padding: .618rem;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .0309em;
+    }
+    @media screen and (max-width: 1600px){
+      width: 49%;
+    }
+  }
+
+}
+
+app-header, app-footer {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+}
+app-header {
+  top: 0;
+  background: $color-primary;
+  border-bottom: 1px solid $gray;
+  color: white;
+  box-shadow:
+    inset 0 -1px 1px 0px rgba(255,255,255,.2)
+   , 0 1px 2px 1px rgba(0,0,0,.1)
+   , 0 2px 1px 0px rgba(0,0,0,.05)
+  ;
+}
+app-footer {
+  bottom: 0;
+  background: $color-primary;
+  box-shadow:
+    inset 0 1px 1px 0px rgba(255,255,255,.2)
+   , 0 -1px 2px 1px rgba(0,0,0,.1)
+   , 0 -2px 1px 0px rgba(0,0,0,.05)
+  ;
+}

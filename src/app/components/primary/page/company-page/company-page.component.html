@@ -1,0 +1,84 @@
+<div *ngIf="active else noData" class="company--page">
+  <div class="company--header">
+    <div class="row">
+      <div class="col-6">
+        <div class="company--info">
+          <h1>{{company.name}}</h1>
+          <blockquote>{{company.description}}</blockquote>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="company--status">
+          <div class="status-bar">
+            <ng-container *ngFor="let name of status; let i = index">
+              <status-box
+                [name]="name"
+                [attr.data-status-code]="i"
+                (click)="updateStatus(name.toLowerCase())"
+                class="status {{name.toLowerCase()}}"
+                [class.current]="statusKey == i"
+              ></status-box>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="company--block">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-title">
+          <h4 class="company--name">Financial Data</h4>
+        </div>
+        <div class="card-block">
+          <table class="table">
+            <tr>
+              <th>A</th>
+              <th>B</th>
+              <th>C</th>
+              <th>D</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+            </tr>
+          </table>
+        </div>
+        <div class="card-footer">
+          <h5><span class="note">Made With Proxy Data</span></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <div *ngIf='error else loading'>
+    <h1>Invalid Company Object</h1>
+    <span>/company-page requires a valid company. (Interface: app/models/company)</span>
+    <p>Company ID: {{cid}}</p>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <h4>Loading...</h4>
+</ng-template>

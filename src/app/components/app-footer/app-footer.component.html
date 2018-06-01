@@ -1,0 +1,23 @@
+<div id="footer">
+  <div class="row wrap">
+    <div class="col-4 text-left">
+      <button id="create" class="button btn" routerLink="/add-company">
+        <span>Create</span>
+      </button>
+    </div>
+    <div class="col-4 text-center">
+      <button id="update" class="button btn" [disabled]="!activeCompany" 
+        (click)="updateActiveCompany()"
+      >
+        <span>Update</span>
+      </button>
+    </div>
+    <div id="delete" class="col-4 text-right">
+      <button class="button btn" [disabled]="!activeCompany"
+        (click)="deleteActiveCompany()"
+      >
+        <span>Delete</span>
+      </button>
+    </div>
+  </div>
+</div>

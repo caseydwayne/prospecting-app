@@ -1,0 +1,41 @@
+#logo-block {
+  //border: 1px solid gray;
+  cursor: pointer;
+  padding: .2rem;
+  xbox-shadow:
+    inset 0 0 1px 1px rgba(33,33,33,.25)
+   ,inset 0 0 4px 3px rgba(33,33,33,.1)
+  ;
+  //background-color: white;
+  //padding: .2rem;
+  .logo {
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-size: cover;
+    background-image: url(https://cdn.pixabay.com/photo/2016/02/16/19/57/lightning-bolt-1203953_960_720.png);
+    img { display: none; }
+    display: inline-block;
+    float: left;
+    background-color: gray;
+    filter: saturate(0);
+    border-radius: 50%;
+    margin-right: .6rem;
+  }
+  .text-wrap {
+    height: 48px;
+    //padding: .6rem .333rem;
+    .text {
+      font-size: 1.4em;
+    }
+  }
+  &:after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+  &:hover {
+    background: rgba( 255, 255, 255, .01 );
+    box-shadow: 0 0 7px 2px  rgba( 255, 255, 255, .01 );    
+  }
+}

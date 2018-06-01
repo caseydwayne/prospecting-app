@@ -1,0 +1,42 @@
+#footer {
+  width: 100%;
+  height: 100%;
+  .wrap {
+    padding: .8rem .8rem .6rem;
+  }
+  button, .button, .btn {
+    width: 100%;
+    background: white;
+    color: lighten(black,45);
+    padding: .4rem;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition:
+      box-shadow .121s linear,
+      color .08s linear,
+      opacity .1s linear
+    ;
+    opacity: .95;
+    &:hover {
+      color: lighten(black,40);
+      box-shadow:
+        0 1px 1px 0 lighten(black,40)
+       ,0 2px 1px 0 lighten(black,40)
+      ;
+      opacity: 1;
+      cursor: pointer;
+      &:disabled {
+        cursor: no-drop;
+        &:after {
+          display: block;
+          position: absolute;
+          top: -48px;
+          height: 48px;
+          color: red;
+          content: 'Select a company first!';
+        }
+      }
+    }
+  }
+}
