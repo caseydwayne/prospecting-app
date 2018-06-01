@@ -31,7 +31,7 @@ export class CompanyService {
     return this.active;
   }
 
-  public setActiveCompanyID(n:number){
+  public setActiveCompanyID(n:any){
     return this.active.next(n);
   }
 
@@ -66,7 +66,7 @@ export class CompanyService {
    * updates a company by ID
    */
 
-  public updateCompany(id: number, data: COMPANY){
+  public updateCompany(id: any, data: COMPANY){
     console.log( 'Updating company', id, data );
     const url = this.api(id);
     return this.http.put<COMPANY>( url, data, options );
@@ -77,7 +77,7 @@ export class CompanyService {
    * deletes a company by ID
    */
 
-  public deleteCompany(id: number){
+  public deleteCompany(id: any){
     //console.log( 'Add deleteCompany functionality.');
     console.log( 'Deleting Company', id );
     const url = this.api(id);
@@ -94,7 +94,7 @@ export class CompanyService {
     return this.http.post<COMPANY>( this.api(), data, {} );
   }
 
-  public editCompany(id: number){
+  public editCompany(id: any){
     console.log( 'Editing Company', id );
     console.log( 'Would re-use add-company form for update prepopulating based on existing values.' );
     //transfer existing data to 'add-company' page for edit/update
@@ -109,7 +109,7 @@ export class CompanyService {
   private refreshCompanies(){
     return this.listCompanies();
   }
-  
+
   //updates a status
   public updateStatus(id:number,code:number){
     this.getCompany(id).subscribe(
