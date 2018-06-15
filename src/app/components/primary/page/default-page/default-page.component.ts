@@ -19,7 +19,7 @@ export class DefaultPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.listCompanies().subscribe(
+    this.api.getCompanies().subscribe(
       data => this.company_count = data.length
     )
   }

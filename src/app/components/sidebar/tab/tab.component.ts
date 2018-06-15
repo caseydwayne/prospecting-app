@@ -1,4 +1,4 @@
-import { Component, OnInit, Directive, Input } from '@angular/core';
+import { Component, OnInit, Directive, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { COMPANY } from '../../../data/models/company';
 
 @Component({
@@ -8,9 +8,10 @@ import { COMPANY } from '../../../data/models/company';
 })
 
 
-export class TabComponent implements OnInit {
+export class TabComponent implements OnInit, OnDestroy {
 
   @Input('company') company: COMPANY;
+  @ViewChild('tab') tab: ElementRef;
 
   constructor(){
   }
@@ -18,4 +19,8 @@ export class TabComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy(){
+    //this.tab.nativeElement.classList.push('slideOutLeft');
+    //console.log('destroying tab', this.company.id)
+  }
 }

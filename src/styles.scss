@@ -27,7 +27,7 @@ $theme-colors: ();
     @if $hue == null or type-of($hue) != number {
       $hue: -1;
     }
-  }// @else { @debug 'Detected non -1 value: ' + $hue; }
+  } //@else { @debug 'Detected non -1 value: ' + $hue; }
   $c: hsl( $hue, $saturation, $brightness );
   $theme-colors: map-merge( $theme-colors, ( "#{$color}": $c ) );
   @return $c;

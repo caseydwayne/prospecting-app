@@ -1,11 +1,11 @@
 <div id="sidebar">
 
-  <div *ngIf='company_list; else noCompany'>
-    <div *ngFor="let company of company_list">
+  <div *ngIf='(company_list | async); else noCompany'>
+    <div *ngFor="let company of company_list | async">
       <tab
         [company]="company"
         (click)="activateCompany(company)"
-        routerLink="/company/{{company.id}}"        
+        routerLink="/company/{{company.id}}"
       ></tab>
     </div>
   </div>
