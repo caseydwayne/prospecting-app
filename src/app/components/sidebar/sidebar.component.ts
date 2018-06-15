@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit, OnChanges, AfterViewInit {
   public company_list;//: COMPANY[];
 
   constructor(private api: CompanyService) {}
-  
+
   public activateCompany(company:COMPANY){
     this.api.activateCompany(company);
   }
@@ -29,16 +29,17 @@ export class SidebarComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   public getCompanies(){
-    this.api.company_list.subscribe(
+    const self = this;
+    this.api.getCompaniesSubject().subscribe(
       x => {
-        this.company_list =  this.api.getCompanies();
+        self.company_list =  self.api.getCompanies();
       }
     );
   }
 
   public xgetCompanies(){
     //doing it this way to update the bar when the company_list changes
-    this.api.getCompaniesSubject().getValue().subscribe(
+    this.api.getCompaniesSubject().subscribe(
       data => {
         this.company_list = data;
         //this.api.getCompanies();
@@ -47,14 +48,16 @@ export class SidebarComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit() {
+    this.company_list =  this.api.getCompanies();
   }
 
   ngOnChanges() {
   }
 
   ngAfterViewInit() {
-
-      this.getCompanies();
+    this.api.update_number.subscribe(
+      x => { this.company_list =  this.api.getCompanies(); }
+    )
   }
 
 }
